@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* =========================
+   DESIGN TOKENS
+========================= */
+
+:root {
+
+    /* Colores base */
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: rgba(255,255,255,0.05);
+    --bg-hover: rgba(255,255,255,0.08);
+
+    /* Marca (puedes cambiar aquí según tu logo) */
+    --color-primary: #2563eb;
+    --color-accent: #f97316;
+
+    /* Texto */
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #cbd5e1;
+
+    /* Bordes */
+    --border-soft: rgba(255,255,255,0.08);
+    --border-active: var(--color-accent);
+
+    /* Sombras */
+    --shadow-soft: 0 10px 25px rgba(0,0,0,0.25);
+
+    /* Radios */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    /* Transiciones */
+    --transition: 0.25s ease;
+}
+
+/* =========================
+   RESET GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-soft);
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 170px;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Menú */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.menu-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    transform: translateX(4px);
+}
+
+.menu-btn.active {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    color: white;
+    font-weight: 600;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    flex: 1;
+    padding: 40px 50px;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.seccion {
+    animation: fadeIn 0.35s ease;
+}
+
+.oculto {
+    display: none;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(14px);
+    padding: 25px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-soft);
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-active);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+.form-card {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+}
+
+input,
+select {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    outline: none;
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.3);
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border: none;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(249,115,22,0.4);
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .menu {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .main {
+        padding: 25px;
+    }
+}
+
+/* =========================
+   IA DOCENTE (CHAT)
+========================= */
+
+.chat-box {
+    background: var(--bg-hover);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-soft);
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.chat-message.user {
+    text-align: right;
+    color: var(--color-accent);
+}
+
+.chat-message.assistant {
+    text-align: left;
+    color: var(--text-primary);
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+}
+
+/* =========================
+   BOTÓN SECUNDARIO
+========================= */
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-active);
+}
+
+/* =========================
+   MODAL IA ALUMNO
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.oculto {
+    display: none;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    width: 600px;
+    max-width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-soft);
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+}
+
+.modal-content select,
+.modal-content input {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   RESULTADO IA
+========================= */
+
+.resultado-ia {
+    background: var(--bg-hover);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    white-space: pre-wrap;
+    line-height: 1.6;
+    border: 1px solid var(--border-soft);
+    font-size: 14px;
+}
+
+/* Scroll elegante */
+
+.chat-box::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 6px;
+}

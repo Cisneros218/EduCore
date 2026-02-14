@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCore - MathMentor Pro</title>
+
+    <!-- Iconos en pestaña -->
+    <link rel="icon" href="assets/logo.png.png" sizes="32x32">
+    <link rel="icon" href="assets/logo.png.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="assets/logo.png.png">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Menú principal">
+        <div class="logo-container">
+            <img src="assets/logo.png.png" alt="MathMentor Pro Logo" class="logo">
+        </div>
+
+        <nav class="menu">
+            <button data-seccion="dashboard" class="menu-btn active">Dashboard</button>
+            <button data-seccion="alumnos" class="menu-btn">Alumnos</button>
+            <button data-seccion="asistencia" class="menu-btn">Asistencia</button>
+            <button data-seccion="progreso" class="menu-btn">Progreso</button>
+            <button data-seccion="planificador" class="menu-btn">Planificador</button>
+            <button data-seccion="iaDocente" class="menu-btn">🧠 IA Docente</button>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main">
+
+        <header class="topbar">
+            <h1>MathMentor Pro</h1>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="seccion">
+            <header class="section-header">
+                <h2>Resumen General</h2>
+            </header>
+            <div class="grid">
+
+                <!-- Botones dinámicos del dashboard -->
+                <button class="btn-primary" onclick="mostrarTotalAlumnos()">Total de Alumnos</button>
+                <button class="btn-primary" onclick="mostrarAsistenciasHoy()">Asistencias Hoy</button>
+                <button class="btn-primary" onclick="mostrarProgresoReciente()">Progreso Reciente</button>
+                <button class="btn-primary" onclick="mostrarAlumnosPorNivel()">Alumnos por Nivel</button>
+
+            </div>
+            <div id="resumen" class="grid" style="margin-top:20px;"></div>
+        </section>
+
+        <!-- ALUMNOS -->
+        <section id="alumnos" class="seccion oculto">
+            <header class="section-header">
+                <h2>Gestión de Alumnos</h2>
+            </header>
+
+            <article class="card form-card">
+                <form id="formAlumno">
+                    <div class="form-group">
+                        <label for="nombreAlumno">Nombre</label>
+                        <input type="text" id="nombreAlumno" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edadAlumno">Edad</label>
+                        <input type="number" id="edadAlumno" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nivelAlumno">Nivel</label>
+                        <select id="nivelAlumno">
+                            <option value="Nivel 1">Nivel 1 - Bases</option>
+                            <option value="Nivel 2">Nivel 2 - Álgebra</option>
+                            <option value="Nivel 3">Nivel 3 - Formal</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Agregar Alumno</button>
+                </form>
+            </article>
+
+            <div id="listaAlumnos" class="grid"></div>
+        </section>
+
+        <!-- ASISTENCIA -->
+        <section id="asistencia" class="seccion oculto">
+            <header class="section-header">
+                <h2>Control de Asistencia</h2>
+            </header>
+            <div id="listaAsistencia" class="grid"></div>
+        </section>
+
+        <!-- PROGRESO -->
+        <section id="progreso" class="seccion oculto">
+            <header class="section-header">
+                <h2>Seguimiento Académico</h2>
+            </header>
+            <div id="listaProgreso" class="grid"></div>
+        </section>
+
+        <!-- PLANIFICADOR -->
+        <section id="planificador" class="seccion oculto">
+            <header class="section-header">
+                <h2>Planificador Pedagógico</h2>
+            </header>
+            <div id="contenidoPlanificador" class="grid"></div>
+        </section>
+
+        <!-- IA DOCENTE -->
+        <section id="iaDocente" class="seccion oculto">
+            <header class="section-header">
+                <h2>🧠 IA Docente</h2>
+            </header>
+
+            <div class="card">
+                <div id="chatDocente" class="chat-box"></div>
+
+                <div class="chat-input">
+                    <input type="text" id="inputDocente" placeholder="Escribe tu mensaje..." />
+                    <button onclick="enviarMensajeDocente()" class="btn-primary">Enviar</button>
+                    <button onclick="limpiarChatDocente()" class="btn-secondary">Limpiar</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MODAL IA POR ALUMNO -->
+<div id="modalIAAlumno" class="modal oculto">
+    <div class="modal-content">
+        <h3>🤖 Generar Material IA</h3>
+
+        <select id="tipoIAAlumno">
+            <option value="ejercicios">Ejercicios</option>
+            <option value="examen">Examen</option>
+            <option value="refuerzo">Refuerzo</option>
+            <option value="explicacion">Explicación</option>
+        </select>
+
+        <input type="text" id="temaIAAlumno" placeholder="Tema (ej: ecuaciones lineales)" />
+
+        <div class="modal-actions">
+            <button onclick="generarIAAlumno()" class="btn-primary">Generar</button>
+            <button onclick="cerrarModalIA()" class="btn-secondary">Cerrar</button>
+        </div>
+
+        <div id="resultadoIAAlumno" class="resultado-ia"></div>
+    </div>
+</div>
+
+<script src="script.js" defer></script>
+
+<!-- Funciones de dashboard interactivas -->
+<script>
+function mostrarTotalAlumnos() {
+    const total = state.alumnos.length;
+    document.getElementById('resumen').innerHTML = `<div class="card">Total de alumnos registrados: ${total}</div>`;
+}
+
+function mostrarAsistenciasHoy() {
+    const hoy = new Date().toISOString().split('T')[0];
+    let count = 0;
+    state.alumnos.forEach(a => {
+        if (a.asistencia.some(x => x.fecha === hoy && x.estado === "Presente")) count++;
+    });
+    document.getElementById('resumen').innerHTML = `<div class="card">Asistencias hoy: ${count}</div>`;
+}
+
+function mostrarProgresoReciente() {
+    const recientes = state.alumnos.map(a => {
+        const last = a.progreso[a.progreso.length-1];
+        return last ? `${a.nombre}: ${last.estado}` : `${a.nombre}: Sin registro`;
+    }).join('<br>');
+    document.getElementById('resumen').innerHTML = `<div class="card">${recientes}</div>`;
+}
+
+function mostrarAlumnosPorNivel() {
+    const niveles = {};
+    state.alumnos.forEach(a => {
+        niveles[a.nivel] = (niveles[a.nivel] || 0) + 1;
+    });
+    const html = Object.keys(niveles).map(n => `<div>${n}: ${niveles[n]}</div>`).join('');
+    document.getElementById('resumen').innerHTML = `<div class="card">${html}</div>`;
+}
+</script>
+
+</body>
+</html>
